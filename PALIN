@@ -1,0 +1,90 @@
+#include<stdio.h>
+#include<string.h>
+
+// method to reverse a palindrome
+void reverse( char a[] , int len )
+{
+    int itr=0;
+    int mid=(len)/2;
+    while(itr<=mid)
+    {
+        a[len-1-itr] = a[itr];
+        itr++;
+    }
+
+}
+
+// method to obtain next palindrome from given palindrome
+bool findnextpalin(char a[],int len)
+{
+int itr;
+    bool msbis9=false;
+    int mid=(len-1)/2;
+    itr=mid;
+         while(itr>0)
+        {
+
+
+        if(a[itr]=='9'){
+                         a[itr]='0';
+                         itr--;
+                       }
+        else {a[itr]+=1;break;}
+
+        }
+if(itr==0){ if(a[itr]=='9'){ a[itr]='0'; msbis9=true;}
+                         else a[itr]+=1;
+                          }
+
+return msbis9;
+}
+
+
+int main()
+{
+char a[1000001],b[1000001],c[1000001];
+int t,itr;
+bool flag,prsnt,thisispalin,smallerthanreverse;
+int n,next;
+scanf("%d",&t);
+for(int i=0;i<t;++i)
+{   prsnt=false;
+    thisispalin=false;
+    smallerthanreverse=false;
+    flag=false;// indicates that msb is 9
+scanf("%s",a);
+
+strcpy(b,a);
+reverse(a,strlen(a));
+if(strcmp(a,b)<0||strcmp(a,b)==0){
+                                    // find the next palindrome
+                                    flag=findnextpalin(a,strlen(a));
+                                    
+                                    if(flag){   c[0]='1';
+                                                int itr=0;
+                                                reverse(a,strlen(a));
+                                                   while(a[itr]!='\0'){
+                                                                        c[itr+1]=a[itr];
+                                                                        itr++;
+                                                                      }
+                                            c[itr+1]='\0';
+                                             reverse(c,strlen(c));
+
+                                              printf("%s\n",c);
+                                             }
+                                    
+                                    else { reverse(a,strlen(a));printf("%s\n",a);}
+      
+                                 }
+    else
+    {
+        printf("%s\n",a);
+        
+        
+    }
+                         
+}
+
+return 0;
+}
+
